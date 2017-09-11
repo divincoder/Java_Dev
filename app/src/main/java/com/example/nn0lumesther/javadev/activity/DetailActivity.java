@@ -2,6 +2,7 @@ package com.example.nn0lumesther.javadev.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.nn0lumesther.javadev.R;
@@ -11,17 +12,22 @@ import static com.example.nn0lumesther.javadev.adapter.DeveloperAdapter.DEVELOPE
 
 public class DetailActivity extends AppCompatActivity {
     private Developer developer;
+    private TextView username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        TextView username = (TextView) findViewById(R.id.username);
+        initViews();
 
         if (getIntent() != null) {
             developer = getIntent().getParcelableExtra(DEVELOPER_KEY);
             username.setText(developer.getLogin());
+            Log.d("TAG", "This block of code ran");
         }
+    }
+
+    private void initViews(){
+        username = (TextView) findViewById(R.id.username);
     }
 }

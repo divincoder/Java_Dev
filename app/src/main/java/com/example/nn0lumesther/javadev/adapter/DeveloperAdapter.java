@@ -49,7 +49,6 @@ public class DeveloperAdapter extends RecyclerView.Adapter<DeveloperAdapter.Deve
         Glide.with(mContext)
                 .load(developer.getAvatarUrl())
                 .into(holder.profileImage);
-
     }
 
     @Override
@@ -57,7 +56,7 @@ public class DeveloperAdapter extends RecyclerView.Adapter<DeveloperAdapter.Deve
         return developers.size();
     }
 
-    public class DeveloperHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class DeveloperHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private CircleImageView profileImage;
         private TextView username;

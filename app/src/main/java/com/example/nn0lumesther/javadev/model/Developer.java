@@ -28,14 +28,6 @@ public class Developer implements Parcelable {
     private String htmlUrl;
 
 
-    protected Developer(Parcel in) {
-        login = in.readString();
-        avatarUrl = in.readString();
-        gravatarId = in.readString();
-        url = in.readString();
-        htmlUrl = in.readString();
-    }
-
     public final static Parcelable.Creator<Developer> CREATOR = new Creator<Developer>() {
         @Override
         public Developer createFromParcel(Parcel in) {
@@ -99,15 +91,23 @@ public class Developer implements Parcelable {
 
 
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(login);
-        dest.writeValue(id);
-        dest.writeValue(avatarUrl);
-        dest.writeValue(gravatarId);
-        dest.writeValue(url);
-        dest.writeValue(htmlUrl);
+        dest.writeString(login);
+        dest.writeInt(id);
+        dest.writeString(avatarUrl);
+        dest.writeString(gravatarId);
+        dest.writeString(url);
+        dest.writeString(htmlUrl);
     }
 
     public int describeContents() {
         return 0;
+    }
+
+    private Developer(Parcel in) {
+        login = in.readString();
+        avatarUrl = in.readString();
+        gravatarId = in.readString();
+        url = in.readString();
+        htmlUrl = in.readString();
     }
 }
