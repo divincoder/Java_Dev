@@ -105,6 +105,7 @@ public class Developer implements Parcelable {
 
     private Developer(Parcel in) {
         login = in.readString();
+        id = in.readInt();
         avatarUrl = in.readString();
         gravatarId = in.readString();
         url = in.readString();

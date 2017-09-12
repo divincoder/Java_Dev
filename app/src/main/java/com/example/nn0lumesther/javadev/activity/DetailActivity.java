@@ -13,6 +13,7 @@ import static com.example.nn0lumesther.javadev.adapter.DeveloperAdapter.DEVELOPE
 public class DetailActivity extends AppCompatActivity {
     private Developer developer;
     private TextView username;
+    private TextView link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +24,13 @@ public class DetailActivity extends AppCompatActivity {
         if (getIntent() != null) {
             developer = getIntent().getParcelableExtra(DEVELOPER_KEY);
             username.setText(developer.getLogin());
+            link.setText(developer.getUrl());
             Log.d("TAG", "This block of code ran");
         }
     }
 
     private void initViews(){
         username = (TextView) findViewById(R.id.username);
+        link = (TextView) findViewById(R.id.link_text);
     }
 }

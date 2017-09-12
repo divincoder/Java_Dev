@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nn0lumesther.javadev.R;
@@ -30,10 +31,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.nn0lumesther.javadev.adapter.DeveloperAdapter.DEVELOPER_KEY;
+
 public class MainActivity extends AppCompatActivity {
     private RecyclerView developerRecyclerView;
     private ProgressBar mProgressBar;
     private DeveloperAdapter mAdapter;
+    private DeveloperList developerList;
+    private TextView errorText;
     private static final Service API_INTERFACE = Client.getClient().create(Service.class);
 
     @Override
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         developerRecyclerView = (RecyclerView) findViewById(R.id.developers_rv);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        errorText = (TextView) findViewById(R.id.error_text);
         developerRecyclerView.setHasFixedSize(true);
 
         getJavaDevelopers();
@@ -57,6 +63,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //outState.putParcelableArrayList(DEVELOPER_KEY, developerList.getItems());
     }
 
     @Override
@@ -88,8 +100,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DeveloperList> call, Response<DeveloperList> response) {
                 if (response.isSuccessful()) {
+                    errorText.setVisibility(View.GONE);
                     mProgressBar.setVisibility(View.GONE);
-                    DeveloperList developerList = response.body();
+                    developerList = response.body();
                     loadData(developerList);
 
                     Log.d("TAG", "Request Successful");
@@ -102,7 +115,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<DeveloperList> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Request failed check your Internet Connection", Toast.LENGTH_LONG).show();
+
+                mProgressBar.setVisibility(View.INVISIBLE);
+                errorText.setVisibility(View.VISIBLE);
+
                 t.printStackTrace();
             }
         });
